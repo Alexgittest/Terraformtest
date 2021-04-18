@@ -14,7 +14,7 @@ variable "ssh_key_name" {
   default = "devops-training"
 }
 
-resource "aws_instance" "docker server"{
+resource "aws_instance" "docker_server"{
     ami = var.ami_type
     instance_type="t2.micro"
     vpc_security_group_ids = [aws_security_group.allow_ssh_and_5000.id]
