@@ -27,6 +27,9 @@ resource "aws_instance" "docker_server"{
     instance_type="t2.micro"
     vpc_security_group_ids = [aws_security_group.allow_ssh_and_5000.id]
     key_name=var.ssh_key_name
+    tags = {
+        Name = "docker_server"
+  }
     user_data = <<EOF
 #!/bin/bash
 apt update -y
