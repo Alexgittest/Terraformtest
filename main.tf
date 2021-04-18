@@ -9,6 +9,12 @@ variable "ssh_key_name" {
   default = "devops-training"
 }
 
+variable "my_ip" {
+  type = list(string)
+  description = "my ip addresses
+  default = ["46.53.128.0/17","18.197.151.117"]
+}
+
 data "aws_ami" "my_ubuntu" {
     most_recent=true
     filter {
@@ -54,7 +60,7 @@ resource "aws_security_group" "allow_ssh_and_5000" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["46.53.128.0/17"]
+    cidr_blocks = var.my_ip
   }
 
   egress {
