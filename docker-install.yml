@@ -1,0 +1,40 @@
+---
+ - name: Install Docker
+   hosts: AWS-ubuntu
+   become: yes
+ 
+   tasks:
+    - name: Install tools
+      apt:
+       name: 
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg
+        - lsb-release
+       state: present
+       update_cache: yes
+
+    - name: Add Docker’s official GPG key
+      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+    - name: Get lsb release
+      shell: lsb_release -cs
+      register: ubuntu_release
+    
+    - name: Set stable repo
+      shell: echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{ ubuntu_release.stdout }} stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+ 
+    - name: Install docker
+      apt:
+       name: 
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+       state: present
+       update_cache: yes
+
+    - name: Enable Docker
+      systemd:
+          name: docker
+          state: started
