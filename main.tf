@@ -23,7 +23,7 @@ data "aws_ami" "my_ubuntu" {
 }
 
 resource "aws_instance" "docker_server"{
-    ami = "${data.aws_ami.my_ubuntu.id}"
+    ami = data.aws_ami.my_ubuntu.id
     instance_type="t2.micro"
     vpc_security_group_ids = [aws_security_group.allow_ssh_and_5000.id]
     key_name=var.ssh_key_name
