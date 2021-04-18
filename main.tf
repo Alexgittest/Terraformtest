@@ -64,3 +64,7 @@ resource "aws_security_group" "allow_ssh_and_5000" {
     Name = "allow_ssh_and_5000"
   }
 }
+
+output "ec2_pub_ip" {
+    value = aws_instance.docker_server.public_ip
+}
