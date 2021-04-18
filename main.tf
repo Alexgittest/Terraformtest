@@ -12,7 +12,7 @@ variable "ssh_key_name" {
 variable "my_ip" {
   type = list(string)
   description = "my ip addresses"
-  default = ["46.53.128.0/17","18.197.151.117"]
+  default = ["46.53.128.0/17","18.197.151.117/32"]
 }
 
 data "aws_ami" "my_ubuntu" {
